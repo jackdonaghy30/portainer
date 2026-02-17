@@ -12,7 +12,7 @@ services:
       - SPEEDTEST_URL=${SPEEDTEST_URL}
       - SPEEDTEST_TRACKER_API_TOKEN=${SPEEDTEST_TRACKER_API_TOKEN}
     volumes:
-      - ./config:/app/config
+      - /home/dagmarb/glance/config:/app/config   # <--- pasta do host
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "8081:8080"
