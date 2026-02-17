@@ -1,6 +1,9 @@
 # Environment variables
 .env
 
+# immich local env example (ignored)
+immich/.env
+
 # Docker volumes data (if mounted locally)
 data/
 mysql/
