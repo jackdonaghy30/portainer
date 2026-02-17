@@ -17,11 +17,15 @@ Aplicações incluídas
 
 - Portainer — interface para gestão de containers.
 - Nginx Proxy Manager — proxy reverso com painel web e suporte a certificados.
+ - Vaultwarden — servidor de senhas compatível com Bitwarden.
+ - Speedtest Tracker — painel de testes de velocidade (persistência em `./data`).
 
 Leia os guias específicos para instruções detalhadas de instalação e uso:
 
 - Portainer: [Portainer README](./portainer/README.md)
 - Nginx Proxy Manager: [Nginx Proxy Manager README](./nginx-proxy-manager/README.md)
+ - Vaultwarden: [Vaultwarden README](./vaultwarden/README.md)
+ - Speedtest Tracker: [Speedtest Tracker README](./speedtest-tracker/README.md)
 
 Arquivo principal
 

@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  speedtest-tracker:
+    image: lscr.io/linuxserver/speedtest-tracker:latest
+    container_name: speedtest-tracker
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-UTC}
+      - APP_KEY=${APP_KEY:-}
+      - APP_URL=${APP_URL:-}
+      - APP_ENV=${APP_ENV:-production}
+      - DB_CONNECTION=${DB_CONNECTION:-sqlite}
+      - DB_HOST=${DB_HOST:-}
+      - DB_PORT=${DB_PORT:-}
+      - DB_DATABASE=${DB_DATABASE:-}
+      - DB_USERNAME=${DB_USERNAME:-}
+      - DB_PASSWORD=${DB_PASSWORD:-}
+      - SPEEDTEST_SCHEDULE=${SPEEDTEST_SCHEDULE:-}
+      - SPEEDTEST_SERVERS=${SPEEDTEST_SERVERS:-}
+      - DISPLAY_TIMEZONE=${DISPLAY_TIMEZONE:-Etc/UTC}
+      - PRUNE_RESULTS_OLDER_THAN=${PRUNE_RESULTS_OLDER_THAN:-0}
+    volumes:
+      - ./config:/config
+    ports:
+      - "8082:80"
+      - "8443:443"
+    # If you use a reverse proxy (nginx-proxy-manager) remove the ports mapping
+    # and create a Proxy Host pointing to speedtest-tracker:80
+
