@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./vw-data:/data
+    environment:
+      - DOMAIN=${DOMAIN}
+      - SIGNUPS_ALLOWED=${SIGNUPS_ALLOWED}
+      - WEBSOCKET_ENABLED=${WEBSOCKET_ENABLED:-true}
+    ports:
+      - "8080:80"
+    # If you use a reverse proxy (Traefik / nginx-proxy-manager) remove the ports mapping and add appropriate labels here.
+
+# Notes:
+# - Data is stored in ./vw-data (SQLite by default). For production consider Postgres (DATABASE_URL).
+# - Place secrets (like ADMIN_TOKEN) in the .env file and never commit it to git.
