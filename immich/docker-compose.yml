@@ -1,0 +1,76 @@
+version: "3.8"
+services:
+  database:
+    image: postgres:15-alpine
+    container_name: immich_database
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${DB_USERNAME:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
+      - POSTGRES_DB=${DB_DATABASE_NAME:-immich}
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    networks:
+      - shared
+
+  redis:
+    image: redis:7-alpine
+    container_name: immich_redis
+    restart: unless-stopped
+    networks:
+      - shared
+
+  immich-server:
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-v2}
+    container_name: immich_server
+    restart: unless-stopped
+    depends_on:
+      - database
+      - redis
+    environment:
+      - DATABASE_HOST=database
+      - DATABASE_PORT=5432
+      - DB_DATABASE_NAME=${DB_DATABASE_NAME:-immich}
+      - DB_USERNAME=${DB_USERNAME:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-postgres}
+      - REDIS_HOST=redis
+      - UPLOAD_LOCATION=${UPLOAD_LOCATION:-./library}
+      - TZ=${TZ}
+    volumes:
+      - ./library:/app/library
+    ports:
+      - "3000:3000"
+    networks:
+      - shared
+
+  immich-web:
+    image: ghcr.io/immich-app/immich-web:${IMMICH_VERSION:-v2}
+    container_name: immich_web
+    restart: unless-stopped
+    depends_on:
+      - immich-server
+    environment:
+      - IMMICH_SERVER_URL=${IMMICH_SERVER_URL}
+      - TZ=${TZ}
+    ports:
+      - "3001:80"
+    networks:
+      - shared
+
+  immich-machine-learning:
+    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-v2}
+    container_name: immich_ml
+    restart: unless-stopped
+    depends_on:
+      - immich-server
+    environment:
+      - IMMICH_SERVER_URL=${IMMICH_SERVER_URL}
+      - TZ=${TZ}
+    volumes:
+      - ./ml-models:/models
+    networks:
+      - shared
+
+networks:
+  shared:
+    external: true
