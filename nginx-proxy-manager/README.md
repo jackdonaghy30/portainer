@@ -4,6 +4,20 @@ Nginx Proxy Manager é uma ferramenta de gerenciamento de proxy reverso com inte
 
 ## Como usar
 
+### Configuração Inicial
+
+1. Copie o arquivo de exemplo de variáveis de ambiente:
+```bash
+cp .env.example .env
+```
+
+2. Edite o arquivo `.env` e altere as senhas padrão:
+```bash
+nano .env  # ou use seu editor preferido
+```
+
+⚠️ **Importante**: Sempre altere as senhas padrão antes de iniciar os containers!
+
 ### Iniciar o Nginx Proxy Manager
 
 ```bash
@@ -51,11 +65,13 @@ Interface web e servidor proxy
 Banco de dados para armazenar configurações
 
 **Credenciais do banco:**
-- Usuário: npm
-- Senha: npm_password
-- Database: npm
+- Configuradas via arquivo `.env`
+- Valores padrão (se não configurar .env):
+  - Usuário: npm
+  - Senha: npm_password
+  - Database: npm
 
-⚠️ **Segurança**: Altere as senhas no arquivo docker-compose.yml antes de usar em produção!
+⚠️ **Segurança**: Sempre crie um arquivo `.env` baseado no `.env.example` e altere todas as senhas antes de usar!
 
 ## Características
 
