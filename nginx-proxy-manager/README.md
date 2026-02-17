@@ -50,6 +50,11 @@ Credenciais padrão para o primeiro acesso:
 - **443**: HTTPS (tráfego web seguro)
 - **81**: Interface de administração web
 
+⚠️ **Aviso de Portas**: 
+- As portas 80 e 443 são portas padrão para tráfego web. Certifique-se de que não há outros serviços usando essas portas
+- Em produção, configure firewall apropriadamente para controlar acesso externo
+- Considere usar apenas a porta 81 internamente se não precisar de funcionalidade de proxy imediatamente
+
 ## Volumes
 
 - **npm_data**: Dados de configuração do Nginx Proxy Manager
