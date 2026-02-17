@@ -1,0 +1,166 @@
+pages: 
+  - name: Home   
+    head-widgets:
+
+    columns:
+      - size: small
+        widgets:  
+          - type: clock 
+            hide-header: true
+            title: Relógio
+            hour-format: 24h
+            timezones:
+              - timezone: Europe/Berlin
+                label: Alemanha
+              - timezone: America/Sao_Paulo
+                label: Brasil
+              - timezone: Asia/Kolkata
+                label: Índia
+                
+          - type: calendar
+            title: Calendário
+            first-day-of-week: monday
+
+          - type: weather
+            location: Essen, Germany
+            units: metric
+            hour-format: 24h
+          - type: weather
+            location: Schwäbisch Gmünd, Germany
+            units: metric
+            hour-format: 24h
+          - type: weather
+            location: Sao Paulo, Brazil
+            units: metric
+            hour-format: 24h
+          - type: weather
+            location: Ribeirão Pires, Brazil
+            units: metric
+            hour-format: 24h
+           
+      - size: full
+        widgets:
+          - type: search
+            search-engine: google
+            bangs:
+              - title: Google 
+                shortcut: "!yt"
+                url: https://www.google.com/search?q={QUERY}          
+
+          - type: group
+            define: &shared-properties
+              type: rss   
+              cache: 30s # 30 seconds
+              style: detailed-list
+              limit: 3
+              single-line-titles: true
+              collapse-after: 3
+              preserve-order: false 
+            widgets: 
+              - title: Técnologia
+                <<: *shared-properties
+                feeds: 
+                  - url: https://g1.globo.com/rss/g1/tecnologia/
+                    title: G1 - Tecnologia
+                    limit: 3
+
+              - title: Economia
+                <<: *shared-properties
+                feeds: 
+                  - url: https://g1.globo.com/rss/g1/economia/
+                    title: G1 - Economia
+                    limit: 1
+                  - url: https://www.ft.com/rss/home/international
+                    title: Financial Times
+                    limit: 1
+                  - url: https://rss.dw.com/rdf/rss-en-bus
+                    title: DW Business
+                    limit: 1
+
+              - title: Notícias
+                type: rss   
+                cache: 30s # 30 seconds
+                style: detailed-list
+                limit: 3
+                single-line-titles: true
+                collapse-after: 3
+                preserve-order: false 
+                feeds:
+                  - url: https://g1.globo.com/rss/g1/
+                    title: G1
+                    limit: 1 
+                  - url: https://g1.globo.com/rss/g1/mundo/
+                    title: Mundo - G1
+                    limit: 1
+                  - url: https://g1.globo.com/rss/g1/politica/
+                    title: Política - G1
+                    limit: 1
+
+          - type: bookmarks
+            $include: bookmarks.yml 
+
+      - size: small
+        widgets:  
+          - type: bookmarks
+            groups:
+              - title: Sites
+                links:
+                  - title: Gmail
+                    icon: mdi:email
+                    url: https://mail.google.com/mail/u/0/
+                  - title: Amazon
+                    icon: mdi:shopping
+                    url: https://www.amazon.com/
+                  - title: Github
+                    icon: mdi:github
+                    url: https://github.com/
+                  - title: Wikipedia
+                    icon: mdi:wikipedia
+                    url: https://en.wikipedia.org/
+              - title: Entertainment
+                color: 10 70 50
+                links:
+                  - title: Netflix
+                    icon: mdi:netflix
+                    url: https://www.netflix.com/
+                  - title: YouTube
+                    icon: mdi:youtube
+                    url: https://www.youtube.com/
+                  - title: Prime Video
+                    icon: auto-invert sh:amazon-prime-dark
+                    url: https://www.primevideo.com/
+              - title: Social
+                color: 200 50 50
+                links:
+                  - title: Facebook
+                    icon: mdi:facebook
+                    url: https://www.facebook.com/ 
+                  - title: Instagram
+                    icon: mdi:instagram
+                    url: https://www.instagram.com/
+                  - title: Tiktok
+                    icon: si:tiktok
+                    url: https://www.tiktok.com/
+
+
+  - name: Economia   
+    slug: economia
+    - $include: economia-page.yml
+
+  - name: Noticias 
+    slug: noticias
+    - $include: noticias-page.yml
+
+  - name: Tecnologia
+    slug: tecnologia
+    - $include: tecnologia-page.yml
+
+  - name: Games
+    - $include: games-page.yml
+
+  - name: Vídeos 
+    slug: videos
+    - $include: videos-page.yml
+
+  - name: Docker
+    - $include: docker-page.yml

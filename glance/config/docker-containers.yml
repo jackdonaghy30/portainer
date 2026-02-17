@@ -1,0 +1,98 @@
+- type: docker-containers
+  title: Containers  
+  containers:
+    portainer:
+      name: Portainer
+      description: Docker management UI
+      url: https://portainer.dagmarbezerra-vm.duckdns.org
+      icon: si:portainer
+      hide: false
+    glance:
+      name: Glance
+      description: Dashboard
+      url: https://glance.dagmarbezerra-vm.duckdns.org 
+      icon: si:glance 
+      hide: false
+    npm-app:
+      name: Nginx Proxy Manager
+      description: Reverse proxy management UI
+      url: https://nginx.dagmarbezerra-vm.duckdns.org
+      icon: si:nginxproxymanager
+      hide: false
+    speedtest:
+      name: Speedtest CLI
+      description: Internet speed testing
+      icon: mdi:speedometer
+    npm-db:
+      name: Maria DB for Nginx  
+      parent: npm-app 
+    dashy:
+      name: Dashy
+      description: Dashboard
+      url: https://dashy.dagmarbezerra-vm.duckdns.org
+      icon: si:daisyui 
+    immich_server:
+      name: Immich Server
+      description: Photo management server
+      url: https://fotos.dagmarbezerra-vm.duckdns.org
+      icon: si:immich
+    immich_machine_learning:
+      name: Immich Machine Learning
+      description: ML services for Immich 
+      icon: si:immich
+      parent: immich_server 
+    immich_redis:
+      name: Immich Redis
+      description: Redis instance for Immich
+      parent: immich_server
+    immich_postgres:
+      name: Immich Postgres
+      description: Postgres database for Immich
+      parent: immich_server 
+    speedtest-tracker:
+      name: Speedtest
+      description: Speed monitoring
+      url: https://speedtest.dagmarbezerra-vm.duckdns.org
+      icon: si:speedtest
+    vaultwarden:
+      name: Vaultwarden
+      description: Password manager
+      url: https://senhas.dagmarbezerra-vm.duckdns.org
+      icon: si:vaultwarden
+    jellyfin:
+      name: Jellyfin
+      description: Media server
+      url: https://jellyfin.dagmarbezerra-vm.duckdns.org
+      icon: si:jellyfin
+    qbittorrent:
+      name: qBittorrent
+      description: Torrent client
+      parent: jellyfin
+    radarr:
+      name: Radarr
+      description: Movie management
+      parent: jellyfin
+    prowlarr:
+      name: Prowlarr
+      description: Indexer management
+      parent: jellyfin
+    lidarr:
+      name: Lidarr
+      description: Music management
+      parent: jellyfin
+    sonarr:
+      name: Sonarr
+      description: TV show management
+      parent: jellyfin
+    bazarr:
+      name: Bazarr
+      description: Subtitle management
+      parent: jellyfin
+    seerr:
+      name: Seerr
+      description: Media request management
+      parent: jellyfin
+    tdarr:
+      name: Tradarr
+      description: Movie request management
+      parent: jellyfin

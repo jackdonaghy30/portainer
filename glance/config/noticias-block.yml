@@ -1,0 +1,44 @@
+- type: rss  
+  cache: 30s # 30 seconds
+  style: detailed-list
+  limit: 7
+  single-line-titles: true
+  collapse-after: 3
+  preserve-order: false
+  title: Técnologia
+  feeds: 
+    - url: https://g1.globo.com/rss/g1/tecnologia/
+      title: Tecnologia - G1
+      limit: 7
+
+- type: rss  
+  cache: 30s # 30 seconds
+  style: detailed-list
+  limit: 7
+  single-line-titles: true
+  collapse-after: 3
+  preserve-order: false
+  title: Economia
+  feeds: 
+    - url: https://g1.globo.com/rss/g1/economia/
+      title: Economia - G1
+      limit: 7
+      
+- type: rss  
+  cache: 30s # 30 seconds
+  style: detailed-list
+  limit: 50
+  single-line-titles: true
+  collapse-after: 3
+  preserve-order: false
+  title: Notícias
+  feeds:
+    - url: https://g1.globo.com/rss/g1/
+      title: G1
+      limit: 7 
+    - url: https://g1.globo.com/rss/g1/mundo/
+      title: Mundo - G1
+      limit: 7
+    - url: https://g1.globo.com/rss/g1/politica/
+      title: Política - G1
+      limit: 7

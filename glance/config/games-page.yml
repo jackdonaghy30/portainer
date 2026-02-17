@@ -1,0 +1,78 @@
+columns:
+  - size: small
+    widgets:
+      - type: custom-api
+        title: Steam Specials
+        cache: 12h
+        url: https://store.steampowered.com/api/featuredcategories?cc=us
+        template: |
+          <ul class="list list-gap-10 collapsible-container" data-collapse-after="5">
+          {{ range .JSON.Array "specials.items" }}
+            <li>
+              <a class="size-h4 color-highlight block text-truncate" href="https://store.steampowered.com/app/{{ .Int "id" }}/">{{ .String "name" }}</a>
+              <ul class="list-horizontal-text">
+                <li>{{ div (.Int "final_price" | toFloat) 100 | printf "$%.2f" }}</li>
+                {{ $discount := .Int "discount_percent" }}
+                <li{{ if ge $discount 40 }} class="color-positive"{{ end }}>{{ $discount }}% off</li>
+              </ul>
+            </li>
+          {{ end }}
+          </ul>
+ 
+  - size: full
+    widgets: 
+      - type: search 
+        search-engine: google
+        bangs:
+          - title: Steam
+            shortcut: "!yt"      
+            url: https://store.steampowered.com/search/?term={QUERY}&cc=us
+
+      - type: rss 
+        title: Games
+        cache: 30s # 30 seconds
+        style: detailed-list
+        limit: 25
+        single-line-titles: true
+        preserve-order: false
+        colapse-after-rows: 5
+        feeds:  
+          - url: https://br.ign.com/rss
+            title: IGN Brasil
+            limit: 25 
+          - url: https://www.gamespot.com/feeds/mashup/
+            title: GameSpot
+            limit: 25
+          - url: https://kotaku.com/rss
+            title: Kotaku
+            limit: 25
+          - url: https://www.polygon.com/rss/index.xml
+            title: Polygon
+            limit: 25
+          - url: https://www.eurogamer.net/?format=rss
+            title: Eurogamer  
+            limit: 25 
+
+      - type: bookmarks
+        $include: bookmarks.yml
+
+  - size: small 
+    widgets:   
+      - type: videos
+        title: Foxhole
+        limit: 10
+        style: grid-cards
+        collapse-after: 2
+        collapse-after-rows: 1
+        channels:
+          - UCyTJpcW9AOC0ul-T0Ma30iQ
+          - UCAaVV_lemfZWZ3VJFI42clQ
+          
+      - type: videos
+        title: Fireship
+        limit: 100
+        style: grid-cards
+        collapse-after: 6
+        collapse-after-rows: 3
+        channels: 
+          - UCJx5KP-pCUmL9eZUv-mIcNw

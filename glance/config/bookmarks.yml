@@ -1,0 +1,30 @@
+groups:
+  - links:
+      - title: Home
+        url: home
+        icon: mdi:home
+        target: _self
+      - title: Tecnologia
+        url: tecnologia
+        icon: mdi:laptop
+        target: _self
+      - title: Economia
+        icon: mdi:finance
+        url: economia
+        target: _self
+      - title: Notícias 
+        url: noticias
+        icon: mdi:newspaper
+        target: _self
+      - title: Games
+        url: games
+        icon: mdi:gamepad-variant
+        target: _self 
+      - title: Vídeos
+        url: videos
+        icon: mdi:youtube
+        target: _self
+      - title: Docker
+        url: docker
+        icon: mdi:docker
+        target: _self

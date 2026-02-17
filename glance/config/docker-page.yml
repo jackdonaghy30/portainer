@@ -1,0 +1,42 @@
+columns:
+  - size: small
+    widgets:
+      - type: server-stats
+        servers:
+          - type: local
+            name: VM
+            description: VM N100
+
+  - size: full
+    widgets: 
+      - $include: speedtest.yml
+
+      - $include: docker-containers.yml
+
+      - type: custom-api
+        $include: nginx.yml
+
+      - type: bookmarks
+        $include: bookmarks.yml
+
+  - size: small
+    widgets:
+      - type: monitor
+        cache: 1m
+        title: Services
+        sites:
+          - title: Jellyfin
+            url: https://jellyfin.yourdomain.com
+            icon: sh:jellyfin
+          - title: Gitea
+            url: https://gitea.yourdomain.com
+            icon: sh:gitea
+          - title: Immich
+            url: https://immich.yourdomain.com
+            icon: sh:immich
+          - title: AdGuard Home
+            url: https://adguard.yourdomain.com
+            icon: sh:adguard
+          - title: Vaultwarden
+            url: https://vault.yourdomain.com
+            icon: sh:vaultwarden

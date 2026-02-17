@@ -1,0 +1,21 @@
+columns:
+  - size: small
+    widgets:
+      - type: calendar
+        title: Calendário
+        first-day-of-week: monday
+      - type: weather
+        location: Essen, Germany
+        units: metric
+        hour-format: 24h
+      - type: weather
+        location: Schwäbisch Gmünd, Germany
+        units: metric
+        hour-format: 24h
+      - type: weather
+        location: Sao Paulo, Brazil
+        units: metric
+        hour-format: 24h
+  - size: full
+    widgets: 
+      - $include: noticias-block.yml

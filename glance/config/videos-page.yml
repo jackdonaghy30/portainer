@@ -1,0 +1,30 @@
+columns:
+  - size: full
+    widgets:
+      - type: videos
+        title: Tech
+        limit: 5
+        channels:
+          - UC9Rrud-8CaHokDtK9FszvRg
+          - UCsBjURrPoezykLs9EqgamOA
+      - type: videos
+        title: Curiosity
+        limit: 5
+        channels:
+          - UCHnyfMqiRRG1u-2MsSQLbXA
+      - type: videos
+        title: Notícias
+        limit: 25
+        channels:
+          - UCvdwhh_fDyWccR42-rReZLw
+        playlists: 
+          - PL8cUMXM_077flB9owPDPSN1qxH-gyhUL_
+      - type: videos
+        title: WW - William Waack
+        limit: 5  
+        playlists: 
+          - PL8cUMXM_077flB9owPDPSN1qxH-gyhUL_
+
+      - type: bookmarks
+        $include: bookmarks.yml
+      

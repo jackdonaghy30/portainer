@@ -1,0 +1,12 @@
+- type: markets
+  title: Mercados
+  markets:
+    - symbol: DAX
+      name: DAX 
+      symbol-link: https://www.google.com/search?tbm=nws&q=DAX
+    - symbol: ^BVSP
+      name: BOVESPA  
+      symbol-link: https://www.google.com/search?tbm=nws&q=BOVESPA
+    - symbol: DJI
+      name: Dow Jones
+      symbol-link: https://www.google.com/search?tbm=nws&q=Dow+Jones 

@@ -1,0 +1,157 @@
+columns: 
+  - size: small
+    widgets:   
+      - type: markets
+        title: Moedas
+        markets:
+          - symbol: BTC-USD
+            name: Bitcoin 
+
+      - type: markets
+        title: BRASIL
+        chart-link-template: https://www.tradingview.com/chart/?symbol={SYMBOL}
+        symbol-link-template: https://www.google.com/search?tbm=nws&q={SYMBOL}
+        markets:        
+          - symbol: ^BVSP
+            name: BOVESPA  
+            symbol-link: https://www.google.com/search?tbm=nws&q=BOVESPA  
+          - symbol: VALE3.SA           
+            name: Vale 
+            symbol-link: https://www.google.com/search?tbm=nws&q=Vale+S.A.
+            chart-link-template: https://www.tradingview.com/chart/?symbol=VALE3
+          - symbol: ITUB4.SA
+            name: Itaú Unibanco
+            symbol-link: https://www.google.com/search?tbm=nws&q=Ita%C3%BA+Unibanco
+            chart-link-template: https://www.tradingview.com/chart/?symbol=ITUB4            
+          - symbol: PETR4.SA
+            name: Petrobras
+            symbol-link: https://www.google.com/search?tbm=nws&q=Petrobras
+            chart-link-template: https://www.tradingview.com/chart/?symbol=PETR4
+          - symbol: AXIA3.SA
+            name: Axia Energia
+            symbol-link: https://www.google.com/search?tbm=nws&q=Axia+Energia
+            chart-link-template: https://www.tradingview.com/chart/?symbol=AXIA3
+          - symbol: BBDC4.SA
+            name: Bradesco
+            symbol-link: https://www.google.com/search?tbm=nws&q=Bradesco
+            chart-link-template: https://www.tradingview.com/chart/?symbol=BBDC4
+
+      - type: markets
+        title: ALEMANHA
+        chart-link-template: https://www.tradingview.com/chart/?symbol={SYMBOL}
+        symbol-link-template: https://www.google.com/search?tbm=nws&q={SYMBOL}
+        markets:      
+          - symbol: DAX
+            name: DAX 
+            symbol-link: https://www.google.com/search?tbm=nws&q=DAX
+          - symbol: SAP
+            name: SAP
+            symbol-link: https://www.google.com/search?tbm=nws&q=SAP
+          - symbol: SIE
+            name: Siemens AG
+            symbol-link: https://www.google.com/search?tbm=nws&q=Siemens+AG
+          - symbol: ALV
+            name: Allianz
+            symbol-link: https://www.google.com/search?tbm=nws&q=Allianz
+          - symbol: ENR
+            name: Siemens Energy
+            symbol-link: https://www.google.com/search?tbm=nws&q=Siemens+Energy
+          - symbol: AIR
+            name: Airbus SE
+            symbol-link: https://www.google.com/search?tbm=nws&q=Airbus+SE
+
+      - type: markets
+        title: USA
+        chart-link-template: https://www.tradingview.com/chart/?symbol={SYMBOL}
+        symbol-link-template: https://www.google.com/search?tbm=nws&q={SYMBOL}
+        markets:      
+          - symbol: DJI
+            name: Dow Jones
+            symbol-link: https://www.google.com/search?tbm=nws&q=Dow+Jones
+          - symbol: GS
+            name: Goldman Sachs
+            symbol-link: https://www.google.com/search?tbm=nws&q=Goldman+Sachs
+          - symbol: CAT
+            name: Caterpillar Inc.
+            symbol-link: https://www.google.com/search?tbm=nws&q=Caterpillar+Inc.
+          - symbol: MSFT
+            name: Microsoft
+            symbol-link: https://www.google.com/search?tbm=nws&q=Microsoft
+          - symbol: HD
+            name: Home Depot
+            symbol-link: https://www.google.com/search?tbm=nws&q=Home+Depot
+          - symbol: SHW
+            name: Sherwin-Williams
+            symbol-link: https://www.google.com/search?tbm=nws&q=Sherwin-Williams 
+
+  - size: full
+    widgets:  
+      - $include: economia-mercado-indices.yml
+
+      - type: rss  
+        title: Economia
+        cache: 30s # 30 seconds
+        style: detailed-list
+        limit: 25
+        single-line-titles: true
+        preserve-order: false
+        feeds: 
+          - url: https://g1.globo.com/rss/g1/economia/
+            title: G1 - Economia
+            limit: 25
+          - url: https://www.ft.com/rss/home/international
+            title: Financial Times
+            limit: 25
+          - url: https://rss.dw.com/rdf/rss-en-bus
+            title: DW Business
+            limit: 25
+
+      - type: bookmarks
+        $include: bookmarks.yml
+
+  - size: small 
+    widgets:  
+      - type: videos 
+        title: CNN Money
+        limit: 10
+        style: grid-cards
+        collapse-after: 2
+        collapse-after-rows: 1
+        playlists:    
+          - PLEnEM62M0blTYrRqrpLkHFNvD57JDaJfc
+
+      - type: videos 
+        title: Bloomberg
+        limit: 10
+        style: grid-cards
+        collapse-after: 2
+        collapse-after-rows: 1
+        channels:    
+          - UCIALMKvObZNtJ6AmdCLP7Lg 
+          
+      - type: videos 
+        title: DW Business
+        limit: 10
+        style: grid-cards
+        collapse-after: 2
+        collapse-after-rows: 1
+        playlists:    
+          - PLT6yxVwBEbi3VrZECAGCRH83g8oTQCq4m
+
+      - type: videos 
+        title: Financial Times
+        limit: 6
+        style: grid-cards
+        collapse-after: 2
+        collapse-after-rows: 1
+        channels:    
+          - UCoUxsWakJucWg46KW5RsvPw
+
+      - type: videos 
+        title: Yahoo Finance
+        limit: 100
+        style: grid-cards
+        collapse-after: 6
+        collapse-after-rows: 3
+        channels:
+          - UCEAZeUIeJs0IjQiqTCdVSIg     
