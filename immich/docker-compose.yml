@@ -21,7 +21,7 @@ services:
       - shared
 
   immich-server:
-    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-v2}
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
     container_name: immich_server
     restart: unless-stopped
     depends_on:
@@ -44,7 +44,7 @@ services:
       - shared
 
   immich-web:
-    image: ghcr.io/immich-app/immich-web:${IMMICH_VERSION:-v2}
+    image: ghcr.io/immich-app/immich-web:${IMMICH_VERSION:-release}
     container_name: immich_web
     restart: unless-stopped
     depends_on:
@@ -58,19 +58,25 @@ services:
       - shared
 
   immich-machine-learning:
-    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-v2}
-    container_name: immich_ml
+    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
+    container_name: immich_machine_learning
     restart: unless-stopped
     depends_on:
       - immich-server
     environment:
       - IMMICH_SERVER_URL=${IMMICH_SERVER_URL}
       - TZ=${TZ}
+    ports:
+      - "3003:3003"
     volumes:
       - ./ml-models:/models
+      - model-cache:/cache
     networks:
       - shared
 
 networks:
   shared:
     external: true
+
+volumes:
+  model-cache:
