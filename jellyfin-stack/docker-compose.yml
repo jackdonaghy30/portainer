@@ -1,0 +1,165 @@
+version: "3.8"
+
+services:
+  jellyfin:
+    image: linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-Etc/UTC}
+    volumes:
+      - ./config/jellyfin:/config
+      - ./media:/media
+      - ./downloads:/downloads
+    ports:
+      - "8096:8096"
+      - "8920:8920"
+    restart: unless-stopped
+    devices:
+      - /dev/dri:/dev/dri # optional: Intel VA-API
+    networks:
+      - shared
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-Etc/UTC}
+      - WEBUI_PORT=8080
+    volumes:
+      - ./config/qbittorrent:/config
+      - ./downloads:/downloads
+    ports:
+      - "8080:8080"
+      - "6881:6881"
+      - "6881:6881/udp"
+    restart: unless-stopped
+    networks:
+      - shared
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-Etc/UTC}
+    volumes:
+      - ./config/radarr:/config
+      - ./media/movies:/movies
+      - ./downloads:/downloads
+    ports:
+      - "7878:7878"
+    restart: unless-stopped
+    networks:
+      - shared
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-Etc/UTC}
+    volumes:
+      - ./config/sonarr:/config
+      - ./media/tv:/tv
+      - ./downloads:/downloads
+    ports:
+      - "8989:8989"
+    restart: unless-stopped
+    networks:
+      - shared
+
+  lidarr:
+    image: lscr.io/linuxserver/lidarr:latest
+    container_name: lidarr
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-Etc/UTC}
+    volumes:
+      - ./config/lidarr:/config
+      - ./media/music:/music
+      - ./downloads:/downloads
+    ports:
+      - "8686:8686"
+    restart: unless-stopped
+    networks:
+      - shared
+
+  readarr:
+    image: lscr.io/linuxserver/readarr:latest
+    container_name: readarr
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-Etc/UTC}
+    volumes:
+      - ./config/readarr:/config
+      - ./media/audiobooks:/audiobooks
+      - ./downloads:/downloads
+    ports:
+      - "8787:8787"
+    restart: unless-stopped
+    networks:
+      - shared
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-Etc/UTC}
+    volumes:
+      - ./config/prowlarr:/config
+    ports:
+      - "9696:9696"
+    restart: unless-stopped
+    networks:
+      - shared
+
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-Etc/UTC}
+    volumes:
+      - ./config/bazarr:/config
+      - ./media:/media
+      - ./downloads:/downloads
+    ports:
+      - "6767:6767"
+    restart: unless-stopped
+    networks:
+      - shared
+
+  tvheadend:
+    image: linuxserver/tvheadend:latest
+    container_name: tvheadend
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-Etc/UTC}
+    volumes:
+      - ./config/tvheadend:/config
+    ports:
+      - "9981:9981"
+      - "9982:9982"
+    restart: unless-stopped
+    networks:
+      - shared
+
+networks:
+  shared:
+    external: true
+
+volumes:
+  # volumes are kept as host folders (./config, ./media, ./downloads)
+  # add named volumes here if you prefer
