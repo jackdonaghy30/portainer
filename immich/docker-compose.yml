@@ -24,6 +24,15 @@ services:
     networks:
       - shared
 
+  init-upload-dirs:
+    image: busybox:latest
+    container_name: immich_init
+    command: mkdir -p /upload/encoded-video /upload/thumbs /upload/profile /upload/backups /upload/library && chmod 777 /upload /upload/*
+    volumes:
+      - ${UPLOAD_LOCATION:-./uploads}:/upload
+    networks:
+      - shared
+
   immich-server:
     image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
     container_name: immich_server
@@ -31,6 +40,7 @@ services:
     depends_on:
       - database
       - redis
+      - init-upload-dirs
     environment:
       - DATABASE_HOST=database
       - DATABASE_PORT=5432
