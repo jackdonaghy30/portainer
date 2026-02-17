@@ -38,10 +38,10 @@ services:
       - DB_USERNAME=${DB_USERNAME:-postgres}
       - DB_PASSWORD=${DB_PASSWORD:-postgres}
       - REDIS_HOST=redis
-      - UPLOAD_LOCATION=${UPLOAD_LOCATION:-./library}
+      - UPLOAD_LOCATION=/upload
       - TZ=${TZ}
     volumes:
-      - ./library:/app/library
+      - ${UPLOAD_LOCATION:-./uploads}:/upload
     ports:
       - "3000:3000"
     networks:
