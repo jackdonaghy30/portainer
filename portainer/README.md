@@ -39,6 +39,12 @@ Na primeira vez que acessar, você precisará:
 - **portainer_data**: Armazena os dados de configuração do Portainer
 - **/var/run/docker.sock**: Socket do Docker (permite gerenciar o Docker host)
 
+⚠️ **Aviso de Segurança**: O Portainer tem acesso total ao Docker daemon através do socket. Isso significa que:
+- Qualquer usuário com acesso ao Portainer pode gerenciar todos os containers
+- Em produção, configure autenticação forte e considere usar controles de acesso
+- Não exponha a porta 9000/9443 publicamente sem proteção adicional (firewall, VPN, etc.)
+- Considere usar HTTPS (porta 9443) em vez de HTTP (porta 9000) para comunicação segura
+
 ## Características
 
 - Interface web intuitiva

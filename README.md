@@ -103,7 +103,22 @@ cd nginx-proxy-manager && docker-compose logs -f
 ## Notas de Segurança
 
 ⚠️ **Importante**: 
-- Altere as senhas padrão do Nginx Proxy Manager antes de usar em produção
-- Configure firewall adequadamente para restringir acesso às portas
-- Use HTTPS sempre que possível
-- Mantenha as imagens Docker atualizadas
+
+### Nginx Proxy Manager
+- **Sempre** crie um arquivo `.env` a partir do `.env.example` e defina senhas fortes
+- Os valores de placeholder no `.env.example` devem ser substituídos antes do uso
+- Altere as credenciais padrão da interface web após o primeiro login
+- As portas 80 e 443 podem conflitar com outros servidores web - verifique antes de iniciar
+- Configure firewall adequadamente para controlar acesso externo
+
+### Portainer
+- O Portainer tem acesso total ao Docker daemon através do socket
+- Configure autenticação forte na primeira vez que acessar
+- Não exponha as portas publicamente sem proteção adicional (firewall, VPN, proxy reverso)
+- Use HTTPS (porta 9443) em vez de HTTP (porta 9000) quando possível
+
+### Geral
+- Mantenha as imagens Docker sempre atualizadas: `docker-compose pull && docker-compose up -d`
+- Em produção, use HTTPS para todas as comunicações
+- Considere usar um proxy reverso (como o próprio Nginx Proxy Manager) para adicionar camadas extras de segurança
+- Faça backup regular dos volumes Docker
