@@ -38,6 +38,8 @@ Gerenciador de proxy reverso com interface web e suporte a SSL/TLS.
 **Como usar**:
 ```bash
 cd nginx-proxy-manager
+cp .env.example .env
+# Edite o .env para alterar as senhas padrão
 docker-compose up -d
 ```
 
