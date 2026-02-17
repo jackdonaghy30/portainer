@@ -3,9 +3,7 @@ services:
   glance:
     container_name: glance
     image: glanceapp/glance:latest
-    restart: unless-stopped
-    env_file:
-      - .env
+    restart: unless-stopped 
     environment:
       - TZ=${TZ}
       - NGINX_PROXY_URL=${NGINX_PROXY_URL}
