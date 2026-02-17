@@ -1,10 +1,48 @@
 # Environment variables
 .env
 
-# immich local env example (ignored)
+# Ignore any env files in subfolders (examples/local overrides)
+**/.env
+.env.*
+
+# Immich local env example (ignored)
 immich/.env
 
-# Docker volumes data (if mounted locally)
+# Docker volumes data and runtime mounts
 data/
 mysql/
 letsencrypt/
+
+# Immich runtime data (do not commit DB files, uploads, caches)
+immich/postgres/
+immich/uploads/
+immich/ml-models/
+immich/model-cache/
+
+# Prometheus / Grafana local data
+prometheus-data/
+grafana-data/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs and runtime
+*.log
+*.pid
+
+# Node / JS
+node_modules/
+dist/
+build/
+
+# Python
+__pycache__/
+*.py[cod]
+env/
+venv/
+
+# Misc
+*.sql
