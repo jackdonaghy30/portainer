@@ -27,9 +27,9 @@ services:
   init-upload-dirs:
     image: busybox:latest
     container_name: immich_init
-    command: mkdir -p /upload/encoded-video /upload/thumbs /upload/profile /upload/backups /upload/library && chmod 777 /upload /upload/*
+    command: mkdir -p /data/upload /data/encoded-video /data/thumbs /data/profile /data/backups /data/library && chmod 777 /data /data/*
     volumes:
-      - ${UPLOAD_LOCATION:-./uploads}:/upload
+      - ${UPLOAD_LOCATION:-./uploads}:/data
     networks:
       - shared
 
@@ -48,10 +48,10 @@ services:
       - DB_USERNAME=${DB_USERNAME:-postgres}
       - DB_PASSWORD=${DB_PASSWORD:-postgres}
       - REDIS_HOST=redis
-      - UPLOAD_LOCATION=/upload
+      - UPLOAD_LOCATION=/data
       - TZ=${TZ}
     volumes:
-      - ${UPLOAD_LOCATION:-./uploads}:/upload
+      - ${UPLOAD_LOCATION:-./uploads}:/data
     ports:
       - "3000:3000"
     networks:
