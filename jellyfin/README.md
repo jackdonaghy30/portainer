@@ -19,7 +19,7 @@ Observações rápidas:
 - Não incluí um container VPN — você indicou que já usa Tailscale, então não é necessário aqui.
 
 Como usar:
-1. Copie para o servidor e abra a pasta `jellyfin-stack`.
+1. Copie para o servidor e abra a pasta `jellyfin`.
 2. Defina variáveis de ambiente via `export` ou um arquivo `.env` (exemplo abaixo).
 3. Suba com:
 
