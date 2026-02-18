@@ -43,6 +43,8 @@ services:
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
+    depends_on:
+      - media-setup
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
@@ -60,6 +62,8 @@ services:
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
+    depends_on:
+      - media-setup
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
@@ -131,11 +135,20 @@ services:
       - ${CONFIG_LOCATION:-/home/dagmarb/jellyfin/config}/seerr:/app/config
     restart: "no"
 
+  media-setup:
+    image: alpine:latest
+    container_name: media-setup
+    command: sh -c "chown -R 1000:1000 /media && chmod -R 755 /media"
+    volumes:
+      - ${MEDIA_LOCATION:-/home/dagmarb/jellyfin/media}:/media
+    restart: "no"
+
   seerr:
     image: seerr/seerr:latest
     container_name: seerr
     depends_on:
       - seerr-setup
+      - media-setup
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
@@ -153,6 +166,8 @@ services:
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
     container_name: bazarr
+    depends_on:
+      - media-setup
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
