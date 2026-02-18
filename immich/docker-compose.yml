@@ -76,7 +76,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${UPLOAD_LOCATION:-./uploads}:/data
-    command: ["start-microservices.sh"]
+    command: ["/usr/src/app/start-microservices.sh"]
     networks:
       - shared
 
