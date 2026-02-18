@@ -123,15 +123,15 @@ services:
     networks:
       - shared
 
-  overseerr:
-    image: lscr.io/linuxserver/overseerr:latest
-    container_name: overseerr
+  seerr:
+    image: ghcr.io/jellyseerr/seerr:latest
+    container_name: seerr
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
       - TZ=${TZ:-Etc/UTC}
     volumes:
-      - ${CONFIG_LOCATION:-/home/dagmarb/jellyfin/config}/overseerr:/config
+      - ${CONFIG_LOCATION:-/home/dagmarb/jellyfin/config}/seerr:/config
     ports:
       - "5055:5055"
     restart: unless-stopped
