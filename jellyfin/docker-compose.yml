@@ -126,12 +126,13 @@ services:
   seerr:
     image: ghcr.io/seerr-team/seerr:latest
     container_name: seerr
+    init: true
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
       - TZ=${TZ:-Etc/UTC}
     volumes:
-      - ${CONFIG_LOCATION:-/home/dagmarb/jellyfin/config}/seerr:/app/config
+      - seerr_config:/app/config
     ports:
       - "5055:5055"
     restart: unless-stopped
@@ -175,4 +176,5 @@ networks:
   shared:
     external: true
 
-volumes: {}
+volumes:
+  seerr_config:
