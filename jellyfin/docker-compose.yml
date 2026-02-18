@@ -123,15 +123,25 @@ services:
     networks:
       - shared
 
-  jellyseerr:
-    image: lscr.io/linuxserver/jellyseerr:latest
-    container_name: jellyseerr
+  seerr-setup:
+    image: alpine:latest
+    container_name: seerr-setup
+    command: sh -c "mkdir -p /app/config && chown -R 1000:1000 /app/config && chmod -R 755 /app/config"
+    volumes:
+      - ${CONFIG_LOCATION:-/home/dagmarb/jellyfin/config}/seerr:/app/config
+    restart: "no"
+
+  seerr:
+    image: seerr/seerr:latest
+    container_name: seerr
+    depends_on:
+      - seerr-setup
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
       - TZ=${TZ:-Etc/UTC}
     volumes:
-      - ${CONFIG_LOCATION:-/home/dagmarb/jellyfin/config}/jellyseerr:/config
+      - ${CONFIG_LOCATION:-/home/dagmarb/jellyfin/config}/seerr:/app/config
     ports:
       - "5055:5055"
     restart: unless-stopped
