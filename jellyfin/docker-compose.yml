@@ -124,7 +124,7 @@ services:
       - shared
 
   seerr:
-    image: ghcr.io/jellyseerr/seerr:latest
+    image: ghcr.io/seerr-team/seerr:latest
     container_name: seerr
     environment:
       - PUID=${PUID:-1000}
