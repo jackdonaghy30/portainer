@@ -153,6 +153,7 @@ services:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
       - TZ=${TZ:-Etc/UTC}
+      - TMDB_API_KEY=${TMDB_API_KEY}
     volumes:
       - ${CONFIG_LOCATION:-/home/dagmarb/jellyfin/config}/seerr:/app/config
       - ${MEDIA_LOCATION:-/home/dagmarb/jellyfin/media}/movies:/movies
