@@ -160,6 +160,4 @@ networks:
   shared:
     external: true
 
-volumes:
-  # volumes are kept as host folders (./config, ./media, ./downloads)
-  # add named volumes here if you prefer
+volumes: {}
