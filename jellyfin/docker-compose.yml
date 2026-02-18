@@ -209,8 +209,8 @@ services:
       - ${CONFIG_LOCATION:-/home/dagmarb/jellyfin/config}/tdarr/server:/app/server
       - ${CONFIG_LOCATION:-/home/dagmarb/jellyfin/config}/tdarr/configs:/app/configs
       - ${CONFIG_LOCATION:-/home/dagmarb/jellyfin/config}/tdarr/logs:/app/logs
-      - ${MEDIA_LOCATION:-/home/dagmarb/jellyfin/media}:/media
-      - ${TRANSCODE_CACHE:-/transcode_cache}:/temp
+      - ${MEDIA_LOCATION:-/home/dagmarb/jellyfin/media}:/media 
+      - /home/dagmarb/jellyfin/tdarr_cache:/temp
     ports:
       - "8265:8265" # Tdarr WebUI
       - "8266:8266" # Tdarr Server
