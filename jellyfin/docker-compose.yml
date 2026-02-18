@@ -92,7 +92,7 @@ services:
       - shared
 
   readarr:
-    image: linuxserver/readarr:latest
+    image: ghcr.io/pennydreadful/bookshelf:softcover
     container_name: readarr
     environment:
       - PUID=${PUID:-1000}
