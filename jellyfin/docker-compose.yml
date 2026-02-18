@@ -183,18 +183,38 @@ services:
     networks:
       - shared
 
-  tvheadend:
-    image: linuxserver/tvheadend:latest
-    container_name: tvheadend
+  tdarr:
+    image: ghcr.io/haveagitgat/tdarr:latest
+    container_name: tdarr
+    depends_on:
+      - media-setup
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
       - TZ=${TZ:-Etc/UTC}
+      - UMASK_SET=002
+      - serverIP=0.0.0.0
+      - serverPort=8266
+      - webUIPort=8265
+      - internalNode=true
+      - inContainer=true
+      - ffmpegVersion=7
+      - nodeName=MyInternalNode
+      - auth=false
+      - openBrowser=false
+      - maxLogSizeMB=10
+      - cronPluginUpdate=
     volumes:
-      - ${CONFIG_LOCATION:-/home/dagmarb/jellyfin/config}/tvheadend:/config
+      - ${CONFIG_LOCATION:-/home/dagmarb/jellyfin/config}/tdarr/server:/app/server
+      - ${CONFIG_LOCATION:-/home/dagmarb/jellyfin/config}/tdarr/configs:/app/configs
+      - ${CONFIG_LOCATION:-/home/dagmarb/jellyfin/config}/tdarr/logs:/app/logs
+      - ${MEDIA_LOCATION:-/home/dagmarb/jellyfin/media}:/media
+      - ${TRANSCODE_CACHE:-/transcode_cache}:/temp
     ports:
-      - "9981:9981"
-      - "9982:9982"
+      - "8265:8265" # Tdarr WebUI
+      - "8266:8266" # Tdarr Server
+    devices:
+      - /dev/dri:/dev/dri # optional: Intel/AMD hardware acceleration
     restart: unless-stopped
     networks:
       - shared
