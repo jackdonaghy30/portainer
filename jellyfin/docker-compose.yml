@@ -33,7 +33,7 @@ services:
       - ${CONFIG_LOCATION:-/home/dagmarb/jellyfin/config}/qbittorrent:/config
       - ${DOWNLOADS_LOCATION:-/home/dagmarb/jellyfin/downloads}:/downloads
     ports:
-      - "8080:8080"
+      - "${QBIT_WEBUI_PORT:-8081}:8080"
       - "6881:6881"
       - "6881:6881/udp"
     restart: unless-stopped
