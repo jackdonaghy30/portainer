@@ -21,15 +21,8 @@ services:
     image: redis:7-alpine
     container_name: immich_redis
     restart: unless-stopped
-    networks:
-      - shared
-
-  init-upload-dirs:
-    image: busybox:latest
-    container_name: immich_init
-    command: mkdir -p /data/upload /data/encoded-video /data/thumbs /data/profile /data/backups /data/library && touch /data/upload/.immich /data/encoded-video/.immich /data/thumbs/.immich /data/profile/.immich /data/backups/.immich /data/library/.immich && chmod 777 /data /data/*
     volumes:
-      - ${UPLOAD_LOCATION:-./uploads}:/data
+      - redis-data:/data
     networks:
       - shared
 
@@ -40,7 +33,6 @@ services:
     depends_on:
       - database
       - redis
-      - init-upload-dirs
     environment:
       - DATABASE_HOST=database
       - DATABASE_PORT=5432
@@ -53,30 +45,7 @@ services:
     volumes:
       - ${UPLOAD_LOCATION:-./uploads}:/data
     ports:
-      - "3000:3000"
-    networks:
-      - shared
-
-  immich-microservices:
-    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
-    container_name: immich_microservices
-    restart: unless-stopped
-    depends_on:
-      - database
-      - redis
-      - init-upload-dirs
-    environment:
-      - DATABASE_HOST=database
-      - DATABASE_PORT=5432
-      - DB_DATABASE_NAME=${DB_DATABASE_NAME:-immich}
-      - DB_USERNAME=${DB_USERNAME:-postgres}
-      - DB_PASSWORD=${DB_PASSWORD:-postgres}
-      - REDIS_HOST=redis
-      - UPLOAD_LOCATION=/data
-      - TZ=${TZ}
-    volumes:
-      - ${UPLOAD_LOCATION:-./uploads}:/data
-    command: ["/usr/src/app/start-microservices.sh"]
+      - "3000:2283"
     networks:
       - shared
 
@@ -90,7 +59,7 @@ services:
       - IMMICH_SERVER_URL=${IMMICH_SERVER_URL}
       - TZ=${TZ}
     ports:
-      - "3001:80"
+      - "3001:3000"
     networks:
       - shared
 
@@ -117,3 +86,4 @@ networks:
 
 volumes:
   model-cache:
+  redis-data:
