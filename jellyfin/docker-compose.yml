@@ -175,7 +175,8 @@ services:
       - TZ=${TZ:-Etc/UTC}
     volumes:
       - ${CONFIG_LOCATION:-/home/dagmarb/jellyfin/config}/bazarr:/config
-      - ${MEDIA_LOCATION:-/home/dagmarb/jellyfin/media}:/media
+      - ${MEDIA_LOCATION:-/home/dagmarb/jellyfin/media}/movies:/movies
+      - ${MEDIA_LOCATION:-/home/dagmarb/jellyfin/media}/tv:/tv
       - ${DOWNLOADS_LOCATION:-/home/dagmarb/jellyfin/downloads}:/downloads
     ports:
       - "6767:6767"
