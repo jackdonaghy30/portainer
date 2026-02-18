@@ -142,6 +142,7 @@ services:
       - TZ=${TZ:-Etc/UTC}
     volumes:
       - ${CONFIG_LOCATION:-/home/dagmarb/jellyfin/config}/seerr:/app/config
+      - ${MEDIA_LOCATION:-/home/dagmarb/jellyfin/media}:/data
     ports:
       - "5055:5055"
     restart: unless-stopped
