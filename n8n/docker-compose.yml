@@ -1,5 +1,9 @@
 version: '3.8'
 
+# IMPORTANT: Before starting, copy .env.example to .env and set:
+# - N8N_ENCRYPTION_KEY (required - generate with: openssl rand -hex 32)
+# - N8N_BASIC_AUTH_PASSWORD (required for security)
+
 services:
   n8n:
     image: n8nio/n8n:latest
@@ -13,7 +17,8 @@ services:
       - N8N_PROTOCOL=${N8N_PROTOCOL:-http}
       - WEBHOOK_URL=${WEBHOOK_URL:-http://localhost:5678/}
       - GENERIC_TIMEZONE=${TIMEZONE:-America/Sao_Paulo}
-      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
+      # REQUIRED: Set a secure encryption key in .env file
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:?error N8N_ENCRYPTION_KEY is required}
       # Database configuration (optional - uses SQLite by default)
       - DB_TYPE=${DB_TYPE:-sqlite}
       # Uncomment for PostgreSQL
@@ -22,10 +27,10 @@ services:
       # - DB_POSTGRESDB_DATABASE=${DB_POSTGRESDB_DATABASE:-n8n}
       # - DB_POSTGRESDB_USER=${DB_POSTGRESDB_USER:-n8n}
       # - DB_POSTGRESDB_PASSWORD=${DB_POSTGRESDB_PASSWORD}
-      # Authentication
+      # Authentication (REQUIRED: set password in .env file)
       - N8N_BASIC_AUTH_ACTIVE=${N8N_BASIC_AUTH_ACTIVE:-true}
       - N8N_BASIC_AUTH_USER=${N8N_BASIC_AUTH_USER:-admin}
-      - N8N_BASIC_AUTH_PASSWORD=${N8N_BASIC_AUTH_PASSWORD}
+      - N8N_BASIC_AUTH_PASSWORD=${N8N_BASIC_AUTH_PASSWORD:?error N8N_BASIC_AUTH_PASSWORD is required}
     volumes:
       - n8n_data:/home/node/.n8n
       # Optional: Mount custom nodes

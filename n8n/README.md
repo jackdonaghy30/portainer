@@ -16,16 +16,25 @@ n8n é uma ferramenta de automação de workflows extensível que permite conect
    cp .env.example .env
    ```
 
-2. **Edite o arquivo `.env` e configure suas variáveis:**
-   - `N8N_ENCRYPTION_KEY`: Gere uma chave de criptografia segura (use `openssl rand -hex 32`)
-   - `N8N_BASIC_AUTH_USER`: Nome de usuário para acesso
-   - `N8N_BASIC_AUTH_PASSWORD`: Senha de acesso
-   - Ajuste outras variáveis conforme necessário
+2. **⚠️ IMPORTANTE - Edite o arquivo `.env` e configure as variáveis OBRIGATÓRIAS:**
+   
+   **Variáveis obrigatórias:**
+   - `N8N_ENCRYPTION_KEY`: **OBRIGATÓRIA** - Gere uma chave de criptografia segura:
+     ```bash
+     openssl rand -hex 32
+     ```
+   - `N8N_BASIC_AUTH_PASSWORD`: **OBRIGATÓRIA** - Defina uma senha forte para acesso
+   - `N8N_BASIC_AUTH_USER`: Nome de usuário para acesso (padrão: admin)
+   
+   **Outras variáveis opcionais:**
+   - Ajuste hostname, porta, timezone conforme necessário
 
 3. **Inicie o container:**
    ```bash
    docker-compose up -d
    ```
+   
+   **Nota:** O container NÃO iniciará se as variáveis obrigatórias não estiverem definidas.
 
 4. **Acesse a interface web:**
    - URL: http://localhost:5678
@@ -37,6 +46,15 @@ n8n é uma ferramenta de automação de workflows extensível que permite conect
 
 As principais variáveis de ambiente estão documentadas no arquivo `.env.example`:
 
+**Variáveis Obrigatórias:**
+- **N8N_ENCRYPTION_KEY**: Chave de criptografia para dados sensíveis (OBRIGATÓRIA)
+  - Gere com: `openssl rand -hex 32`
+  - Nunca compartilhe ou commite essa chave
+  - Se perdida, dados criptografados serão inacessíveis
+- **N8N_BASIC_AUTH_PASSWORD**: Senha para autenticação básica (OBRIGATÓRIA)
+  - Use uma senha forte e única
+
+**Variáveis Opcionais:**
 - **N8N_HOST**: Hostname para acesso (padrão: localhost)
 - **N8N_PORT**: Porta de acesso (padrão: 5678)
 - **N8N_PROTOCOL**: Protocolo (http ou https)
