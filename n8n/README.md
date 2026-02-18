@@ -60,7 +60,6 @@ As principais variáveis de ambiente estão documentadas no arquivo `.env.exampl
 - **N8N_PROTOCOL**: Protocolo (http ou https)
 - **WEBHOOK_URL**: URL para webhooks (importante para integrações externas)
 - **TIMEZONE**: Fuso horário (padrão: America/Sao_Paulo)
-- **N8N_ENCRYPTION_KEY**: Chave de criptografia (obrigatória)
 
 ### Banco de Dados
 
