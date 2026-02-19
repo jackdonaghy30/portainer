@@ -21,6 +21,7 @@ Aplicações incluídas
  - Speedtest Tracker — painel de testes de velocidade (persistência em `./data`).
  - Glance — coleção de páginas e widgets estáticos (conteúdo em `../glance/`).
  - Jellyfin — media server para organizar e servir sua coleção de mídia (`jellyfin/`).
+ - n8n — ferramenta de automação de workflows extensível para integração entre aplicações.
 
 Leia os guias específicos para instruções detalhadas de instalação e uso:
 
@@ -30,6 +31,7 @@ Leia os guias específicos para instruções detalhadas de instalação e uso:
  - Speedtest Tracker: [Speedtest Tracker README](./speedtest-tracker/README.md)
  - Glance: [Glance README](../glance/README.md)
  - Jellyfin: [Jellyfin README](./jellyfin/README.md)
+ - n8n: [n8n README](./n8n/README.md)
 
 Arquivo principal
 
