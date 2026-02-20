@@ -72,11 +72,36 @@ TRANSCODE_CACHE=/mnt/transcode_cache
    - Configure regras de transcodificação (Plugins/Stacks)
    - Ajuste workers e agendamento
 
-### Integração com Radarr/Sonarr
+### Integração com Radarr/Sonarr (transcodificação automática pós-download)
 
-Você pode integrar Tdarr com Radarr/Sonarr para transcodificar automaticamente após download:
-- Configure webhook em Radarr/Sonarr: `http://tdarr:8266`
-- Use path translators se necessário (editado em `configs/tdarr/configs/Tdarr_Server_Config.json`)
+Você pode integrar Tdarr com Radarr/Sonarr para que **cada filme ou série recém baixado seja automaticamente transcodificado pelo FFmpeg**. Siga os passos abaixo:
+
+#### 1. Configure uma biblioteca no Tdarr
+
+1. Acesse http://localhost:8265 → **Libraries** → **Add Library**.
+2. Defina o **Source** como `/media/movies` (filmes) ou `/media/tv` (séries) — os mesmos caminhos mapeados no container.
+3. Ative **File watcher** para que o Tdarr detecte novos arquivos automaticamente.
+4. Configure o **Transcode plugin stack** desejado (ex: H.264 → H.265 HEVC).
+5. Salve e ative a biblioteca.
+
+#### 2. Configure o Radarr para mover os arquivos para a biblioteca
+
+Certifique-se de que o **Radarr** está configurado para mover (não copiar) os arquivos baixados para `/movies`. Com o **File watcher** ativo no Tdarr, nenhuma configuração extra é necessária: o Tdarr detecta o novo arquivo automaticamente e inicia a transcodificação via FFmpeg.
+
+> **Opcional — webhook do Radarr**: Se preferir um scan imediato em vez de esperar o file watcher, você pode configurar um webhook em Radarr → **Settings** → **Connect** → **Webhook** apontando para a API do Tdarr. Consulte a [documentação oficial do Tdarr](https://docs.tdarr.io/) para o endpoint e parâmetros corretos da versão instalada.
+
+#### 3. Verifique o fluxo
+
+```
+qBittorrent (baixa) → Radarr (move para /movies) → Tdarr detecta (file watcher) → FFmpeg transcodifica → Jellyfin reproduz
+```
+
+#### 4. Translação de caminhos (se necessário)
+
+Se os caminhos do host forem diferentes entre os containers, configure **path translators** no arquivo:
+```
+configs/tdarr/configs/Tdarr_Server_Config.json
+```
 
 ### Recursos e Documentação
 

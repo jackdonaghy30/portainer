@@ -184,11 +184,20 @@ services:
     networks:
       - shared
 
+  tdarr-setup:
+    image: alpine:latest
+    container_name: tdarr-setup
+    command: sh -c "mkdir -p /cache && chown -R ${PUID:-1000}:${PGID:-1000} /cache && chmod -R 755 /cache"
+    volumes:
+      - ${TRANSCODE_CACHE:-/home/dagmarb/jellyfin/tdarr_cache}:/cache
+    restart: "no"
+
   tdarr:
     image: ghcr.io/haveagitgat/tdarr:latest
     container_name: tdarr
     depends_on:
       - media-setup
+      - tdarr-setup
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
@@ -209,8 +218,8 @@ services:
       - ${CONFIG_LOCATION:-/home/dagmarb/jellyfin/config}/tdarr/server:/app/server
       - ${CONFIG_LOCATION:-/home/dagmarb/jellyfin/config}/tdarr/configs:/app/configs
       - ${CONFIG_LOCATION:-/home/dagmarb/jellyfin/config}/tdarr/logs:/app/logs
-      - ${MEDIA_LOCATION:-/home/dagmarb/jellyfin/media}:/media 
-      - /home/dagmarb/jellyfin/tdarr_cache:/temp
+      - ${MEDIA_LOCATION:-/home/dagmarb/jellyfin/media}:/media
+      - ${TRANSCODE_CACHE:-/home/dagmarb/jellyfin/tdarr_cache}:/temp
     ports:
       - "8265:8265" # Tdarr WebUI
       - "8266:8266" # Tdarr Server
