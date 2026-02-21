@@ -10,10 +10,10 @@ services:
       - TZ=${TZ:-America/Sao_Paulo}
       - PASSWORD=${PASSWORD:?PASSWORD must be set in .env}
       - SUDO_PASSWORD=${SUDO_PASSWORD}
-      - DEFAULT_WORKSPACE=${DEFAULT_WORKSPACE:-/config/workspace}
     volumes:
       - ${CONFIG_LOCATION:-./config}:/config
-      - ${HOST_WORKSPACE:-./config/workspace}:/config/workspace
+      - ${CONFIG_LOCATION:-./config}/custom-cont-init.d:/custom-cont-init.d
+      - ${HOST_WORKSPACE:-./vscode/projects}:/vscode/projects
     ports:
       - "${PORT:-8444}:8443"
     restart: unless-stopped
@@ -23,7 +23,8 @@ services:
   init-workspace:
     image: alpine:3.18
     container_name: vscode-init-workspace
-    command: sh -c "mkdir -p /config/workspace && chown -R ${PUID:-1000}:${PGID:-1000} /config/workspace"
+    command: sh -c "mkdir -p /vscode/projects && chown -R ${PUID:-1000}:${PGID:-1000} /vscode/projects"
     volumes:
       - ${CONFIG_LOCATION:-./config}:/config
+      - ${HOST_WORKSPACE:-./vscode/projects}:/vscode/projects
     restart: 'no'
