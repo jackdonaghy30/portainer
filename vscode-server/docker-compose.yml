@@ -13,6 +13,7 @@ services:
       - DEFAULT_WORKSPACE=${DEFAULT_WORKSPACE:-/config/workspace}
     volumes:
       - ${CONFIG_LOCATION:-./config}:/config
+      - ${HOST_WORKSPACE:-./config/workspace}:/config/workspace
     ports:
       - "${PORT:-8444}:8443"
     restart: unless-stopped
