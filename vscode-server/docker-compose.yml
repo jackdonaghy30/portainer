@@ -16,3 +16,13 @@ services:
     ports:
       - "${PORT:-8444}:8443"
     restart: unless-stopped
+    depends_on:
+      - init-workspace
+
+  init-workspace:
+    image: alpine:3.18
+    container_name: vscode-init-workspace
+    command: sh -c "mkdir -p /config/workspace && chown -R ${PUID:-1000}:${PGID:-1000} /config/workspace"
+    volumes:
+      - ${CONFIG_LOCATION:-./config}:/config
+    restart: 'no'
