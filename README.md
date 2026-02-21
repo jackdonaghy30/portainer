@@ -21,7 +21,7 @@ Aplicações incluídas
  - Speedtest Tracker — painel de testes de velocidade (persistência em `./data`).
  - Glance — coleção de páginas e widgets estáticos (conteúdo em `../glance/`).
  - Jellyfin — media server para organizar e servir sua coleção de mídia (`jellyfin/`).
- - code-server — VS Code no navegador, acessível remotamente via Docker (`code-server/`).
+ - code-server — VS Code no navegador, acessível remotamente via Docker (`vscode-server/`).
 
 Leia os guias específicos para instruções detalhadas de instalação e uso:
 
@@ -29,9 +29,9 @@ Leia os guias específicos para instruções detalhadas de instalação e uso:
 - Nginx Proxy Manager: [Nginx Proxy Manager README](./nginx-proxy-manager/README.md)
  - Vaultwarden: [Vaultwarden README](./vaultwarden/README.md)
  - Speedtest Tracker: [Speedtest Tracker README](./speedtest-tracker/README.md)
- - Glance: [Glance README](../glance/README.md)
+ - Glance: [Glance README](./glance/README.md)
  - Jellyfin: [Jellyfin README](./jellyfin/README.md)
- - code-server: [code-server README](./code-server/README.md)
+ - VS Code Server: [VS Code Server README](./vscode-server/README.md)
 
 Arquivo principal
 

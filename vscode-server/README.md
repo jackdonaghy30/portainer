@@ -30,10 +30,16 @@ docker compose up -d
 Abra o navegador em:
 
 ```
-http://<seu-ip>:8443
+http://<seu-ip>:8444
 ```
 
 Digite a senha definida em `PASSWORD` no `.env`.
+
+Para abrir automaticamente o workspace configurado, use:
+
+```
+http://<seu-ip>:8444/?folder=/vscode/projects
+```
 
 ## Variáveis de Ambiente
 
@@ -44,9 +50,9 @@ Digite a senha definida em `PASSWORD` no `.env`.
 | `TZ`                | `America/Sao_Paulo`    | Fuso horário                                   |
 | `PASSWORD`          | *(obrigatório)*        | Senha de acesso ao code-server                 |
 | `SUDO_PASSWORD`     | *(opcional)*           | Senha sudo dentro do container                 |
-| `PORT`              | `8443`                 | Porta exposta no host                          |
-| `CONFIG_LOCATION`   | `./config`             | Diretório de configuração e workspace no host  |
-| `DEFAULT_WORKSPACE` | `/config/workspace`    | Workspace padrão aberto no editor              |
+| `PORT`              | `8444`                 | Porta exposta no host                          |
+| `CONFIG_LOCATION`   | `./config`             | Diretório de configuração no host              |
+| `HOST_WORKSPACE`    | `./vscode/projects`    | Diretório workspace no host (criado automaticamente) |
 
 ## Comandos Úteis
 
@@ -86,6 +92,18 @@ networks:
 ```
 
 3. No Nginx Proxy Manager, crie um **Proxy Host** apontando para `code-server:8443`.
+
+## Personalização
+
+### Script de Inicialização Customizado
+
+O container executa automaticamente scripts localizados em `config/custom-cont-init.d/` durante a inicialização. O script `set-workspace.sh` já está configurado para definir o workspace padrão.
+
+Você pode adicionar seus próprios scripts nesta pasta para customizar o ambiente.
+
+### Workspace
+
+O workspace padrão está mapeado para o diretório definido em `HOST_WORKSPACE` (padrão: `./vscode/projects`). Esta pasta é criada automaticamente pelo Docker e está acessível em `/vscode/projects` dentro do container.
 
 ## Recursos e Documentação
 
