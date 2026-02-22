@@ -187,6 +187,7 @@ services:
   tdarr:
     image: ghcr.io/haveagitgat/tdarr:latest
     container_name: tdarr
+    cpus: 2.0           # <- limita a 50% do total da CPU
     depends_on:
       - media-setup
     environment:
