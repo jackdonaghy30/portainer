@@ -22,6 +22,7 @@ Aplicações incluídas
  - Glance — coleção de páginas e widgets estáticos (conteúdo em `../glance/`).
  - Jellyfin — media server para organizar e servir sua coleção de mídia (`jellyfin/`).
  - code-server — VS Code no navegador, acessível remotamente via Docker (`vscode-server/`).
+ - Uptime Kuma — painel de monitoramento de disponibilidade de serviços (`uptime-kuma/`).
 
 Leia os guias específicos para instruções detalhadas de instalação e uso:
 
@@ -32,6 +33,7 @@ Leia os guias específicos para instruções detalhadas de instalação e uso:
  - Glance: [Glance README](./glance/README.md)
  - Jellyfin: [Jellyfin README](./jellyfin/README.md)
  - VS Code Server: [VS Code Server README](./vscode-server/README.md)
+ - Uptime Kuma: [Uptime Kuma README](./uptime-kuma/README.md)
 
 Arquivo principal
 
