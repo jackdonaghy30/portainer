@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  kopia:
+    image: kopia/kopia:latest
+    container_name: kopia
+    restart: unless-stopped
+    hostname: kopia-server
+    environment:
+      - TZ=${TZ:-Etc/UTC}
+      - KOPIA_PASSWORD=${KOPIA_PASSWORD}
+    volumes:
+      - ${CONFIG_LOCATION:-./config}:/app/config
+      - ${CACHE_LOCATION:-./cache}:/app/cache
+      - ${LOGS_LOCATION:-./logs}:/app/logs
+      - ${BACKUP_SOURCE:-/mnt/backup-source}:/data:ro
+      - ${REPOSITORY_LOCATION:-./repository}:/repository
+    ports:
+      - "${KOPIA_PORT:-51515}:51515"
+    command:
+      - server
+      - start
+      # --insecure disables TLS inside the container; use a reverse proxy
+      # (e.g. nginx-proxy-manager) to terminate TLS in front of this service.
+      - --insecure
+      - --address=0.0.0.0:51515
+      - --server-username=${KOPIA_UI_USER:-admin}
+      - --server-password=${KOPIA_UI_PASSWORD:?KOPIA_UI_PASSWORD must be set in .env}
+    networks:
+      - shared
+
+networks:
+  shared:
+    external: true
+
+# Notes:
+# - KOPIA_PASSWORD (required): password used to encrypt the backup repository.
+# - KOPIA_UI_USER / KOPIA_UI_PASSWORD (required): credentials for the web UI.
+# - BACKUP_SOURCE: host path that Kopia will back up (mounted read-only inside the container).
+# - REPOSITORY_LOCATION: host path where the local backup repository will be stored.
+# - TLS is handled by a reverse proxy; do NOT expose port 51515 directly to untrusted networks.
+# - Place all secrets in a .env file and never commit it to git.
