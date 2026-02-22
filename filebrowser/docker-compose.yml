@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     volumes:
       - ${FILES_ROOT:-./data}:/srv 
-      - ./config/filebrowser.db:/filebrowser.db
+      - ./config/filebrowser.db:/database/filebrowser.db
       - ./config/settings.json:/.filebrowser.json
     environment:
       - PUID=${PUID:-1000}
