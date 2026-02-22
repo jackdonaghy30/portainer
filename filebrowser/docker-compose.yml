@@ -6,19 +6,21 @@ services:
     container_name: filebrowser
     restart: unless-stopped
     volumes:
-      - ${FILES_ROOT:-./data}:/srv 
-      - ./config/filebrowser.db:/database/filebrowser.db
-      - ./config/settings.json:/.filebrowser.json
+      - ${FILES_ROOT:-./data}:/srv
+      - filebrowser_db:/database/filebrowser.db
+      - filebrowser_settings:/.filebrowser.json
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
     ports:
       - "${PORT:-8083}:80"
-    # If you use a reverse proxy (nginx-proxy-manager) remove the ports mapping
-    # and create a Proxy Host pointing to filebrowser:80
     networks:
       - shared
 
 networks:
   shared:
     external: true
+
+volumes:
+  filebrowser_db:
+  filebrowser_settings:
