@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  ncdu-web-viewer:
+    image: abesesr/ncdu-web-viewer:latest
+    container_name: ncdu-web-viewer
+    environment:
+      - NCDU_WEB_VIEWER_SCAN_FROM=${NCDU_WEB_VIEWER_SCAN_FROM:-folder}
+      - NCDU_WEB_VIEWER_READONLY=${NCDU_WEB_VIEWER_READONLY:-yes}
+    volumes:
+      - ${FOLDER_TO_SCAN:-./folder-to-scan}:/folder-to-scan
+      - ${NCDU_DUMP_FILE:-./ncdu-dump.json}:/ncdu-dump.json
+    ports:
+      - "${PORT:-3000}:3000"
+    restart: unless-stopped
