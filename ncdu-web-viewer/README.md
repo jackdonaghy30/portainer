@@ -36,7 +36,17 @@ http://<seu-ip>:3000
 
 O ncdu escaneia a pasta `/folder-to-scan/` dentro do container. Monte a pasta desejada do host neste caminho.
 
-Exemplo: analisar a pasta `/applis/` do host:
+Para escanear **tudo** (disco inteiro do host), defina:
+
+```bash
+FOLDER_TO_SCAN=/
+NCDU_WEB_VIEWER_SCAN_FROM=folder
+NCDU_WEB_VIEWER_READONLY=yes
+```
+
+Isso monta o `/` do host dentro do container, permitindo analisar todo o uso de disco.
+
+Exemplo: analisar apenas a pasta `/applis/` do host:
 
 ```bash
 FOLDER_TO_SCAN=/applis
