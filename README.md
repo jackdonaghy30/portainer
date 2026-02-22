@@ -22,7 +22,8 @@ Aplicações incluídas
  - Glance — coleção de páginas e widgets estáticos (conteúdo em `../glance/`).
  - Jellyfin — media server para organizar e servir sua coleção de mídia (`jellyfin/`).
  - code-server — VS Code no navegador, acessível remotamente via Docker (`vscode-server/`).
- - Ollama — execução local de LLMs com interface web via Open WebUI (`ollama/`). 
+ - Ollama — execução local de LLMs com interface web via Open WebUI (`ollama/`).
+ - ncdu-web-viewer — interface web para visualizar e navegar pelos resultados do ncdu (análise de uso de disco) (`ncdu-web-viewer/`).
 
 Leia os guias específicos para instruções detalhadas de instalação e uso:
 
@@ -33,7 +34,8 @@ Leia os guias específicos para instruções detalhadas de instalação e uso:
  - Glance: [Glance README](./glance/README.md)
  - Jellyfin: [Jellyfin README](./jellyfin/README.md)
  - VS Code Server: [VS Code Server README](./vscode-server/README.md)
- - Ollama: [Ollama README](./ollama/README.md) 
+ - Ollama: [Ollama README](./ollama/README.md)
+ - ncdu-web-viewer: [ncdu-web-viewer README](./ncdu-web-viewer/README.md)
 
 Arquivo principal
 
