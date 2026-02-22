@@ -4,6 +4,7 @@
 # Ignore any env files in subfolders (examples/local overrides)
 **/.env
 .env.*
+!.env.example
 
 # Immich local env example (ignored)
 immich/.env
