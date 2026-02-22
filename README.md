@@ -23,6 +23,7 @@ Aplicações incluídas
  - Jellyfin — media server para organizar e servir sua coleção de mídia (`jellyfin/`).
  - code-server — VS Code no navegador, acessível remotamente via Docker (`vscode-server/`).
  - Ollama — execução local de LLMs com interface web via Open WebUI (`ollama/`).
+ - Diskover — indexador de arquivos com interface web, powered by Elasticsearch e Redis (`diskover/`).
 
 Leia os guias específicos para instruções detalhadas de instalação e uso:
 
@@ -34,6 +35,7 @@ Leia os guias específicos para instruções detalhadas de instalação e uso:
  - Jellyfin: [Jellyfin README](./jellyfin/README.md)
  - VS Code Server: [VS Code Server README](./vscode-server/README.md)
  - Ollama: [Ollama README](./ollama/README.md)
+ - Diskover: [Diskover README](./diskover/README.md)
 
 Arquivo principal
 
