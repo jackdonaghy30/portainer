@@ -24,6 +24,7 @@ Aplicações incluídas
  - code-server — VS Code no navegador, acessível remotamente via Docker (`vscode-server/`).
  - Ollama — execução local de LLMs com interface web via Open WebUI (`ollama/`).
  - Netdata — monitoramento de performance em tempo real para sistemas e containers (`netdata/`).
+ - PicoClaw — assistente de IA ultra-leve e auto-hospedado com suporte a múltiplos provedores LLM (`picoclaw/`).
 
 Leia os guias específicos para instruções detalhadas de instalação e uso:
 
@@ -36,6 +37,7 @@ Leia os guias específicos para instruções detalhadas de instalação e uso:
  - VS Code Server: [VS Code Server README](./vscode-server/README.md)
  - Ollama: [Ollama README](./ollama/README.md)
  - Netdata: [Netdata README](./netdata/README.md)
+ - PicoClaw: [PicoClaw README](./picoclaw/README.md)
 
 Arquivo principal
 
