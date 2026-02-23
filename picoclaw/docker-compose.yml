@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  picoclaw-gateway:
+    image: ghcr.io/sipeed/picoclaw:latest
+    container_name: picoclaw-gateway
+    restart: unless-stopped
+    profiles:
+      - gateway
+    command: gateway
+    environment:
+      - TZ=${TZ:-America/Sao_Paulo}
+      - PICOCLAW_GATEWAY_HOST=0.0.0.0
+      - PICOCLAW_GATEWAY_PORT=${PICOCLAW_PORT:-18790}
+      - PICOCLAW_AGENTS_DEFAULTS_MODEL=${PICOCLAW_MODEL:-gpt4}
+      - PICOCLAW_PROVIDERS_OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - PICOCLAW_PROVIDERS_OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PICOCLAW_PROVIDERS_ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - PICOCLAW_CHANNELS_TELEGRAM_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - PICOCLAW_CHANNELS_DISCORD_TOKEN=${DISCORD_BOT_TOKEN}
+    volumes:
+      - ${CONFIG_DIR:-./config}:/root/.picoclaw
+    ports:
+      - "${PICOCLAW_PORT:-18790}:${PICOCLAW_PORT:-18790}"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:${PICOCLAW_PORT:-18790}/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    networks:
+      - shared
+
+  picoclaw-agent:
+    image: ghcr.io/sipeed/picoclaw:latest
+    container_name: picoclaw-agent
+    restart: "no"
+    profiles:
+      - agent
+    environment:
+      - TZ=${TZ:-America/Sao_Paulo}
+      - PICOCLAW_AGENTS_DEFAULTS_MODEL=${PICOCLAW_MODEL:-gpt4}
+      - PICOCLAW_PROVIDERS_OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - PICOCLAW_PROVIDERS_OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PICOCLAW_PROVIDERS_ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    volumes:
+      - ${CONFIG_DIR:-./config}:/root/.picoclaw
+    networks:
+      - shared
+
+networks:
+  shared:
+    external: true
