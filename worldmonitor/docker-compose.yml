@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  worldmonitor:
+    build:
+      context: .
+      args:
+        VITE_VARIANT: ${VITE_VARIANT:-full}
+        VITE_MAP_INTERACTION_MODE: ${VITE_MAP_INTERACTION_MODE:-3d}
+        VITE_SENTRY_DSN: ${VITE_SENTRY_DSN:-}
+        VITE_POSTHOG_KEY: ${VITE_POSTHOG_KEY:-}
+        VITE_POSTHOG_HOST: ${VITE_POSTHOG_HOST:-}
+    container_name: worldmonitor
+    restart: unless-stopped
+    ports:
+      - "${WORLDMONITOR_PORT:-8083}:80"
+    networks:
+      - shared
+
+networks:
+  shared:
+    external: true
