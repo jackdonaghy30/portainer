@@ -7,7 +7,7 @@ Deploy básico do Immich usando Docker Compose — estilo consistente com os out
 
 Instruções rápidas:
 
-1. Copie `example.env` para `.env` e ajuste as variáveis (DB_PASSWORD, UPLOAD_LOCATION, etc.).
+1. Copie `.env.example` para `.env` e ajuste as variáveis (DB_PASSWORD, UPLOAD_LOCATION, etc.).
 2. Crie a network externa `shared` se ainda não existir: `docker network create shared`.
 3. Suba os containers:
 
