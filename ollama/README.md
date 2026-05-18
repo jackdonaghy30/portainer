@@ -1,11 +1,12 @@
-# Ollama + Open WebUI
+# Ollama + Open WebUI + llmfit
 
-**Ollama** é uma plataforma para executar modelos de linguagem (LLMs) localmente no seu servidor. Este compose inclui também o **Open WebUI**, uma interface web para interagir com os modelos diretamente pelo navegador.
+**Ollama** é uma plataforma para executar modelos de linguagem (LLMs) localmente no seu servidor. Este compose inclui também o **Open WebUI**, uma interface web para interagir com os modelos diretamente pelo navegador, e o **llmfit**, que recomenda modelos compatíveis com o seu hardware e expõe dashboard/API local.
 
 ## Recursos
 
 - Execução local de LLMs (Llama, Mistral, Phi, Gemma e muito mais)
 - Interface web intuitiva via Open WebUI
+- Dashboard/API do llmfit para análise de compatibilidade de modelos
 - Suporte a GPU NVIDIA (opcional)
 - Dados e modelos persistidos em volume local
 - Integra com Nginx Proxy Manager para HTTPS
@@ -41,6 +42,14 @@ http://<seu-ip>:3000
 
 Na primeira vez, crie uma conta de administrador.
 
+### 5. Acessar o llmfit
+
+Abra no navegador:
+
+```
+http://<seu-ip>:8788
+```
+
 ## Variáveis de Ambiente
 
 | Variável            | Padrão                | Descrição                                           |
@@ -51,6 +60,11 @@ Na primeira vez, crie uma conta de administrador.
 | `WEBUI_PORT`        | `3000`                | Porta do Open WebUI no host                         |
 | `WEBUI_SECRET_KEY`  | *(obrigatório)*       | Chave secreta para sessões do Open WebUI            |
 | `WEBUI_DATA`        | `./webui-data`        | Diretório de dados do Open WebUI no host            |
+| `LLMFIT_PORT`       | `8788`                | Porta do dashboard/API do llmfit no host            |
+| `LLMFIT_DASHBOARD_HOST` | `0.0.0.0`         | Host de bind do dashboard/API do llmfit             |
+| `LLMFIT_DASHBOARD_PORT` | `8787`            | Porta interna usada pelo llmfit no container        |
+| `LLMFIT_CONFIG_LOCATION` | `./llmfit-config`| Diretório de configuração persistente do llmfit     |
+| `OLLAMA_HOST`       | `http://ollama:11434` | Endpoint do Ollama usado pelo llmfit                |
 | `TZ`                | `America/Sao_Paulo`   | Fuso horário                                        |
 
 ## Comandos Úteis
@@ -62,6 +76,7 @@ docker compose up -d
 # Ver logs
 docker compose logs -f ollama
 docker compose logs -f open-webui
+docker compose logs -f llmfit
 
 # Listar modelos instalados
 docker exec -it ollama ollama list
@@ -98,13 +113,16 @@ Certifique-se de que o [NVIDIA Container Toolkit](https://docs.nvidia.com/datace
 ## Usando com Nginx Proxy Manager
 
 1. Remova (ou comente) a seção `ports` do serviço `open-webui`.
-2. No Nginx Proxy Manager, crie um **Proxy Host** apontando para `open-webui:8080`.
+2. Remova (ou comente) a seção `ports` do serviço `llmfit`, se também for publicar por proxy.
+3. No Nginx Proxy Manager, crie um **Proxy Host** apontando para `open-webui:8080`.
+4. Para o llmfit, crie outro **Proxy Host** apontando para `llmfit:8787`.
 
 ## Segurança
 
 - Defina sempre um valor forte e aleatório para `WEBUI_SECRET_KEY`.
 - Não exponha a porta da API do Ollama (`11434`) diretamente na internet.
-- Use o **Nginx Proxy Manager** para expor o Open WebUI com HTTPS e domínio próprio.
+- O llmfit é uma API local de análise; em produção, exponha via HTTPS/autenticação no proxy reverso.
+- Use o **Nginx Proxy Manager** para expor Open WebUI e llmfit com HTTPS e domínio próprio.
 
 ## Recursos e Documentação
 
@@ -112,3 +130,4 @@ Certifique-se de que o [NVIDIA Container Toolkit](https://docs.nvidia.com/datace
 - **Modelos disponíveis**: https://ollama.com/library
 - **Open WebUI**: https://github.com/open-webui/open-webui
 - **Imagem Ollama Docker**: https://hub.docker.com/r/ollama/ollama
+- **llmfit**: https://github.com/AlexsJones/llmfit
