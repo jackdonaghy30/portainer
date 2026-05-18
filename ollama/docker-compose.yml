@@ -26,8 +26,8 @@ services:
     devices:
       - /dev/dri:/dev/dri
     group_add:
-      - "video"
-      - "render"
+      - "44"
+      - "993"
 
   open-webui:
     image: ghcr.io/open-webui/open-webui:main
