@@ -7,6 +7,8 @@ services:
     restart: unless-stopped
     environment:
       - OLLAMA_KEEP_ALIVE=${OLLAMA_KEEP_ALIVE:-24h}
+      - OLLAMA_HOST=0.0.0.0:11434
+      - OLLAMA_VULKAN=1
     volumes:
       - ${OLLAMA_DATA:-./ollama-data}:/root/.ollama
     ports:
@@ -21,6 +23,11 @@ services:
     #           capabilities: [gpu]
     networks:
       - shared
+    devices:
+      - /dev/dri:/dev/dri
+    group_add:
+      - "video"
+      - "render"
 
   open-webui:
     image: ghcr.io/open-webui/open-webui:main
