@@ -9,8 +9,15 @@ services:
       - ./vw-data:/data
     environment:
       - DOMAIN=${DOMAIN}
-      - SIGNUPS_ALLOWED=${SIGNUPS_ALLOWED}
+      - SIGNUPS_ALLOWED=${SIGNUPS_ALLOWED:-false}
       - WEBSOCKET_ENABLED=${WEBSOCKET_ENABLED:-true}
+      - ADMIN_TOKEN=${ADMIN_TOKEN:?defina ADMIN_TOKEN no .env}
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_FROM=${SMTP_FROM}
+      - SMTP_USERNAME=${SMTP_USERNAME}
+      - SMTP_PASSWORD=${SMTP_PASSWORD:?defina SMTP_PASSWORD no .env}
+      - SMTP_SECURITY=${SMTP_SECURITY:-starttls}
+      - SMTP_PORT=${SMTP_PORT:-587}
     ports:
       - "8080:80"
     # If you use a reverse proxy (Traefik / nginx-proxy-manager) remove the ports mapping and add appropriate labels here.
