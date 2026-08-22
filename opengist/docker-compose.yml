@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  opengist:
+    image: ghcr.io/thomiceli/opengist:latest
+    container_name: opengist
+    restart: unless-stopped
+    environment:
+      - TZ=${TZ:-America/Sao_Paulo}
+    volumes:
+      - ${DATA_LOCATION:-./data}:/opengist
+    ports:
+      - "${OPENGIST_PORT:-6157}:6157"
+    networks:
+      - shared
+
+networks:
+  shared:
+    external: true
