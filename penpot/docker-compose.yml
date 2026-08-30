@@ -1,0 +1,82 @@
+version: "3.8"
+
+services:
+  penpot-frontend:
+    image: penpotapp/frontend:latest
+    container_name: penpot_frontend
+    restart: unless-stopped
+    depends_on:
+      - penpot-backend
+      - penpot-exporter
+    environment:
+      - PENPOT_FLAGS=${PENPOT_FLAGS:-enable-registration enable-login}
+    volumes:
+      - penpot-assets:/opt/data/assets
+    ports:
+      - "9001:80"
+    networks:
+      - shared
+
+  penpot-backend:
+    image: penpotapp/backend:latest
+    container_name: penpot_backend
+    restart: unless-stopped
+    depends_on:
+      - penpot-postgres
+      - penpot-redis
+    environment:
+      - PENPOT_FLAGS=${PENPOT_FLAGS:-enable-registration enable-login}
+      - PENPOT_SECRET_KEY=${PENPOT_SECRET_KEY}
+      - PENPOT_DATABASE_URI=postgresql://${POSTGRES_USER:-penpot}:${POSTGRES_PASSWORD}@penpot-postgres/${POSTGRES_DB:-penpot}
+      - PENPOT_DATABASE_USERNAME=${POSTGRES_USER:-penpot}
+      - PENPOT_DATABASE_PASSWORD=${POSTGRES_PASSWORD}
+      - PENPOT_REDIS_URI=redis://penpot-redis/0
+      - PENPOT_ASSETS_STORAGE_BACKEND=assets-fs
+      - PENPOT_STORAGE_ASSETS_FS_DIRECTORY=/opt/data/assets
+      - PENPOT_TELEMETRY_ENABLED=${PENPOT_TELEMETRY_ENABLED:-false}
+      - PENPOT_PUBLIC_URI=${PENPOT_PUBLIC_URI:-http://localhost:9001}
+    volumes:
+      - penpot-assets:/opt/data/assets
+    networks:
+      - shared
+
+  penpot-exporter:
+    image: penpotapp/exporter:latest
+    container_name: penpot_exporter
+    restart: unless-stopped
+    environment:
+      - PENPOT_PUBLIC_URI=${PENPOT_PUBLIC_URI:-http://localhost:9001}
+      - PENPOT_REDIS_URI=redis://penpot-redis/0
+    networks:
+      - shared
+
+  penpot-postgres:
+    image: postgres:15-alpine
+    container_name: penpot_postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-penpot}
+      - POSTGRES_USER=${POSTGRES_USER:-penpot}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - penpot-postgres:/var/lib/postgresql/data
+    networks:
+      - shared
+
+  penpot-redis:
+    image: redis:7-alpine
+    container_name: penpot_redis
+    restart: unless-stopped
+    volumes:
+      - penpot-redis:/data
+    networks:
+      - shared
+
+networks:
+  shared:
+    external: true
+
+volumes:
+  penpot-assets:
+  penpot-postgres:
+  penpot-redis:
