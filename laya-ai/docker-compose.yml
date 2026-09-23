@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  laya-ai:
+    image: ${LAYA_IMAGE:-ghcr.io/laya-ai/playground:latest}
+    container_name: laya-ai
+    restart: unless-stopped
+    environment:
+      TZ: ${TZ:-America/Sao_Paulo}
+      HOST: ${LAYA_HOST:-0.0.0.0}
+      PORT: ${LAYA_PORT:-8080}
+      LAYA_API_KEY: ${LAYA_API_KEY:-replace-with-secure-token}
+    volumes:
+      - laya_ai_data:/data
+    ports:
+      - "${LAYA_PORT:-8080}:8080"
+    networks:
+      - shared
+
+volumes:
+  laya_ai_data:
+
+networks:
+  shared:
+    external: true
