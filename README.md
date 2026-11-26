@@ -24,6 +24,7 @@ Aplicações incluídas
  - code-server — VS Code no navegador, acessível remotamente via Docker (`vscode-server/`).
  - Uptime Kuma — painel de monitoramento de disponibilidade de serviços (`uptime-kuma/`).
  - Grafana — plataforma de visualização e observabilidade de dados (`grafana/`).
+ - PaperPull — coleta extratos e recibos em PDF, com integração ao Paperless-ngx (`paperpull/`).
 
 Leia os guias específicos para instruções detalhadas de instalação e uso:
 
@@ -36,6 +37,7 @@ Leia os guias específicos para instruções detalhadas de instalação e uso:
  - VS Code Server: [VS Code Server README](./vscode-server/README.md)
  - Uptime Kuma: [Uptime Kuma README](./uptime-kuma/README.md)
  - Grafana: [Grafana README](./grafana/README.md)
+ - PaperPull: [PaperPull README](./paperpull/README.md)
 
 Arquivo principal
 

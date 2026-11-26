@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  paperpull:
+    image: ghcr.io/rheeloaded/paperpull-server:${PAPERPULL_VERSION:-0.71.0}
+    container_name: paperpull
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 30s
+    # O Chrome usa memória compartilhada e o padrão do Docker é pequeno demais.
+    shm_size: "2gb"
+    # Perfil seccomp do Docker com user namespaces liberado para o sandbox do Chrome.
+    security_opt:
+      - seccomp=./seccomp-chrome.json
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETUID
+      - SETGID
+      - KILL
+      - SYS_CHROOT
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /run
+      - /home/pp
+    ports:
+      - "${PAPERPULL_PORT:-8765}:8765"
+    environment:
+      TZ: ${TZ:-America/Sao_Paulo}
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+      PAPERPULL_PASSWORD: ${PAPERPULL_PASSWORD:-}
+      PAPERPULL_HOSTS: ${PAPERPULL_HOSTS:-}
+      PAPERPULL_HOSTS_ONLY: ${PAPERPULL_HOSTS_ONLY:-}
+      PAPERLESS_SUBFOLDERS: ${PAPERLESS_SUBFOLDERS:-}
+    volumes:
+      - ${DATA_LOCATION:-./data}:/data
+      - paperpull_profiles:/profiles
+      - paperpull_settings:/config
+      - paperpull_browser:/browser
+      # Para copiar os documentos para o Paperless-ngx, descomente e ajuste:
+      # - ${PAPERLESS_CONSUME_LOCATION}:/paperless
+
+volumes:
+  paperpull_profiles:
+  paperpull_settings:
+  paperpull_browser:
